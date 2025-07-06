@@ -2,10 +2,14 @@ import client from "../../config/client.js";
 
 const companyDatamaper = {
 
-    getCompanies : async ()=>{
-        const res = await client.query("SELECT * FROM company");
+  getOneCompanies : async (symbol)=>{
+        const query = 'SELECT * FROM company WHERE nom_company = $1'
+        const values = [symbol];
+        const res = await client.query(query, values)
         return res.rows;
     },
+
+    
 }
 
 export default companyDatamaper;

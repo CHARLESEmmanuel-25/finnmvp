@@ -17,7 +17,7 @@ async function getCompanyInfo(symbol) {
         if (!Array.isArray(data) || data.length === 0) {
             throw new Error('No data found for the given symbol');
         }
-
+        //console.log(data)
         return data;
     } catch (error) {
         console.error('Error fetching symbol:', error.message);
