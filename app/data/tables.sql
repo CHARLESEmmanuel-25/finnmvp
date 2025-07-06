@@ -1,0 +1,59 @@
+BEGIN;
+
+DROP TABLE IF EXISTS "favori" CASCADE;
+DROP TABLE IF EXISTS "secteur_company" CASCADE;
+DROP TABLE IF EXISTS "company" CASCADE;
+DROP TABLE IF EXISTS "utilisateur" CASCADE;
+DROP TABLE IF EXISTS "secteur" CASCADE;
+
+CREATE TABLE "company" (
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "symbol" TEXT NOT NULL,
+    "nom_company" TEXT,
+    "description" TEXT,
+    "date_creation" TEXT,
+    "CA" NUMERIC
+);
+
+CREATE TABLE "utilisateur" (
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "email" TEXT UNIQUE NOT NULL,
+    "nom" TEXT,
+    "prenom" TEXT,
+    "pseudo" TEXT UNIQUE NOT NULL,
+    "photo" TEXT,
+    "mdp" TEXT NOT NULL,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "secteur" (
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "nom_secteur" TEXT NOT NULL,
+    "CA" TEXT,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE "secteur_company" (
+    "id_secteur" INT NOT NULL REFERENCES "secteur"("id") ON DELETE CASCADE,
+    "id_company" INT NOT NULL REFERENCES "company"("id") ON DELETE CASCADE,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY ("id_secteur", "id_company")
+);
+
+CREATE TABLE "favori" (
+    "id" INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "code_company" INT NOT NULL REFERENCES "company"("id") ON DELETE CASCADE,
+    "code_utilisateur" INT NOT NULL REFERENCES "utilisateur"("id") ON DELETE CASCADE,
+    "created_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updated_at" TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+ALTER SEQUENCE "utilisateur_id_seq" RESTART WITH 1;
+ALTER SEQUENCE "company_id_seq" RESTART WITH 1;
+ALTER SEQUENCE "secteur_id_seq" RESTART WITH 1;
+ALTER SEQUENCE "favori_id_seq" RESTART WITH 1;
+
+COMMIT;
