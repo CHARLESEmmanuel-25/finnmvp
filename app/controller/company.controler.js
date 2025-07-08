@@ -1,4 +1,6 @@
 import getCompanyinfo from "../../utils/callApi/company.info.js";
+import fetchNewsbyCompany from "../../utils/callApi/company.news.js";
+import getLastWeekRange from "../../utils/date/getLastWeekRange.js";
 import companyDatamaper from "../datamapper/company.datamapper.js"
 
 
@@ -15,7 +17,18 @@ const companyController = {
                 //const firstCompany = companies[0];
 
                 const companyinfoApi = await getCompanyinfo(symbol);
-                const {price,marketCap,companyName,lastDividend,image,changePercentage,previousClose} = companyinfoApi[0];
+                const {price,marketCap,companyName,lastDividend,image:companyImage,changePercentage,previousClose} = companyinfoApi[0];
+
+                // get date
+
+                const {dateTo, dateFrom} = getLastWeekRange();
+        
+
+                // fetch news
+
+                const companyNewsApi = await fetchNewsbyCompany(symbol,dateFrom,dateTo)
+                const {headline,id,related,source,summary,url,datetime,image:newsimage} = companyNewsApi[0];
+                const dateformate = new Date(datetime *1000)
 
                 let change = price - changePercentage;
 
@@ -32,7 +45,17 @@ const companyController = {
                     marketCap:marketCap, //donne une idée de la taille de l’entreprise
                     lastDividend:lastDividend,
                     changePercentage:perf,
-                    image:image
+                    image:companyImage,
+                    news:{
+                        id:id,
+                        headline:headline,
+                        related:related,
+                        source:source,
+                        summary:summary,
+                        image:newsimage,
+                        url:url,
+                        date:dateformate.toISOString()
+                    }
                 };
 
                 return res.status(200).json(info);
@@ -58,6 +81,8 @@ const companyController = {
 
                     const companyinfoApi = await getCompanyinfo(symbolCompany);
                     const { price, marketCap, companyName, lastDividend, changePercentage, image } = companyinfoApi[0];
+
+                   
 
                     const info = {
                         symbol:companies[i].symbol,
@@ -88,6 +113,7 @@ const companyController = {
         }
     },
 
+    // filtre par prix
     allCompaniesByPrice: async (req, res) => {
         try {
 
@@ -113,6 +139,9 @@ const companyController = {
         }
 
     }
+
+
+
 
 
 

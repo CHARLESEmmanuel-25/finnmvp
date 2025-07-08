@@ -12,3 +12,8 @@ router.get('/companies', companyController.allCompanies)
 // filtre actions a bas prix l'utilisateur pourra choisir soit en dessous de 200 - 100 - 50
 router.get('/companies/price-range/:min/:max', companyController.allCompaniesByPrice)
 export default router;
+
+
+ //user routes
+ 
+
