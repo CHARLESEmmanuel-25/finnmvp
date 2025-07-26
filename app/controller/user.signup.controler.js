@@ -5,27 +5,28 @@ import userDatamapper from '../datamapper/user.datamapper.js';
 const signupController = {
   async register(req, res) {
     try {
-      const { email, password, passwordConfirm, pseudo } = req.body;
+      const { email, mdp,pseudo } = req.body;
 
-      const userExist = await userDatamapper.show(email);
+      const userExist = await userDatamapper.getEmail(email);
       if (userExist) {
         return res.status(400).json({ error: 'The user already exists' });
       }
 
-      if (password !== passwordConfirm) {
-        return res.status(400).json({ error: "Passwords don't match" });
-      }
+     
 
-      if (password.length < 8) {
-        return res.status(400).json({ error: "Password must be at least 8 characters" });
+      if (mdp.length < 4) {
+        return res.status(400).json({ error: "mdp must be at least 8 characters" });
       }
 
       const saltRounds = 10;
-      const hashedPassword = await bcrypt.hash(password, saltRounds);
+      const hashedmdp = await bcrypt.hash(mdp, saltRounds);
 
-      const newUser = { email, password: hashedPassword, pseudo };
+      const newUser = { email, mdp: hashedmdp, pseudo };
 
-      const createdUser = await userDatamapper.create(newUser);
+      console.log(newUser);
+      
+
+      const createdUser = await userDatamapper.save(newUser);
 
       res.status(201).json({ message: 'User created successfully', userId: createdUser.id });
 

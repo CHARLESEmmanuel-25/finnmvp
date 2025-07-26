@@ -1,0 +1,14 @@
+@url = http://localhost:{{$dotenv PORT}}
+# @url = http://localhost:3000
+
+@mainEndpoint = signup
+
+### POST /signup
+POST {{url}}/{{mainEndpoint}}
+Content-Type: application/json
+
+{
+  "email": "wisno@gmail.com",
+  "mdp": "finn2025",
+  "pseudo": "finwisno"
+}
