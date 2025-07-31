@@ -1,6 +1,10 @@
 
-const companyArray = [];
 
 
-export default companyArray;
+const cacheCompany = {
+  companyCachedata: [],
+  lastFetchTime: null,
+};
+
+export default cacheCompany;
 
