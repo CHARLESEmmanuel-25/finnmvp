@@ -111,7 +111,19 @@ const companyDatamapper = {
     const result = await client.query(query, values);
     return result.rows[0];
     
+  },
+
+  async searchBySymbol(searchword) {
+    const query = `
+      SELECT *
+      FROM company
+      WHERE symbol ILIKE $1
+    `;
+    const values = [`${searchword}%`];
+    const result = await client.query(query, values);
+    return result.rows;
   }
+
 
 
 
