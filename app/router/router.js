@@ -4,6 +4,8 @@ import signinController from "../controller/user.signincontroler.js";
 import companiesTopCaps from "../controller/Company.topcaps.js";
 import companySmallsCap from "../controller/Company.smallcap.js";
 import CompaniesSearchFilterController from "../controller/Company.searchbar.js";
+import loginLimiter from "../middlewares/limiter.login.js";
+
 
 const router = Router();
 
@@ -17,21 +19,18 @@ router.get('/companies/smallscaps', companySmallsCap.smallcapitalisation);
 // Route pour la barre de recherche
 router.post('/companies/search', CompaniesSearchFilterController.searchbar);
 
-
-
-
-
-
-
-
 //lancement du chargement du cache
 router.get('/telecharger', companiesTopCaps.download);
 
 
- //user routes
+//user routes
  router.post('/signup', signupController.register);
 
- router.post('/signin', signinController.login)
+ //connexion
+ router.post('/signin',loginLimiter, signinController.login);
+
+ //logout
+ router.post('/logout', signinController.logout);
 
 
  export default router;
