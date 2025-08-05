@@ -1,0 +1,10 @@
+@url = http://localhost:3000
+@mainEndpoint = companies/search
+
+### Recherche via POST avec body
+POST {{url}}/{{mainEndpoint}}
+Content-Type: application/json
+
+{
+  "searchword": "B"
+}
