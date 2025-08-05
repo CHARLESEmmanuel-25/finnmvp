@@ -1,14 +1,22 @@
 import {Router} from "express";
-import companyController from "../controller/company.controler.js";
+import signupController from "../controller/user.signup.controler.js";
+import signinController from "../controller/user.signincontroler.js";
+import companyController from "../controller/Company.controller.js";
 
 const router = Router();
 
-//recherche
-router.get('/company/:symbol', companyController.oneCompany);
 
-// une liste d'entreprise
-router.get('/companies', companyController.allCompanies)
+// Route pour afficher la liste des entreprise dans top capitalisations
 
-// filtre actions a bas prix l'utilisateur pourra choisir soit en dessous de 200 - 100 - 50
-router.get('/companies/price-range/:min/:max', companyController.allCompaniesByPrice)
-export default router;
+router.get('/company/topcaps', companyController.topcapitalisation);
+
+
+
+ //user routes
+ router.post('/signup', signupController.register);
+
+ router.post('/signin', signinController.login)
+
+
+ export default router;
+
