@@ -1,53 +1,41 @@
 import companyDatamapper from "../datamapper/company.datamapper.js";
-import companyCache from "../../utils/api/cacheExpire.js";
+import companyCache from "../../utils/api/downloadCompanyBDD.js";
 
 const companySmallsCap = {
   smallcapitalisation: async (req, res) => {
     try {
-      const companyData = companyCache.companyCachedata;
+      const companies = await companyDatamapper.getCompany();
 
-      if (!companyData || companyData.length === 0) {
-        return res.status(404).json({
-          message: "Aucune donnée en cache. Veuillez patienter ou lancer une mise à jour.",
-        });
+      if (!companies || companies.length === 0) {
+        return res.status(404).json({ error: "Aucune donnée trouvée." });
       }
 
-      // Définition des seuils
-      const SMALL_CAP_MIN = 300_000_000;
-      const SMALL_CAP_MAX = 2_000_000_000;
-      const NANO_CAP_MAX = 300_000_000;
+      // Capitalisation minimale : 300_000_000
+     const smallCaps = companies.filter(company => {
+      const cap = Number(company.marketcap);
+      return cap >= 300_000_000 && cap <= 2_000_000_000;
+    });
 
-      // Filtrage Small Cap, Micro et Nano uniquement (mktCap <= 2 milliards)
-      const results = companyData
-        .filter((company) => company.mktCap <= SMALL_CAP_MAX)
-        .map((company) => {
-          const mktCap = company.mktCap;
-          let category = "";
+      if (smallCaps.length === 0) {
+        return res.status(404).json({ error: "Aucune entreprise en-dessous de 200 milliards." });
+      }
 
-          if (mktCap >= SMALL_CAP_MIN) {
-            category = "Small Cap";
-          } else if (mktCap >= NANO_CAP_MAX) {
-            category = "Micro Cap";
-          } else {
-            category = "Nano Cap";
-          }
+      // Créer un tableau d’objets contenant seulement logo et symbol
+      const companiesData = smallCaps.map(company => ({
+        logo: company.image,
+        symbol: company.symbol,
+        fullName : company.nom_company,
+        description: company.description,
+        categorie: "Smalls capitalisations"
+      }));
 
-          return {
-            companyName: company.companyName,
-            mktCap: company.mktCap,
-            symbol: company.symbol,
-            image: company.image,
-            price: company.price,
-            category: category,
-          };
-        });
+      return res.status(200).json(companiesData);
 
-      return res.status(200).json(results);
     } catch (error) {
-      console.error("Erreur dans smallcapitalisation (cache only) :", error);
-      res.status(500).json({ error: "Erreur serveur" });
+      console.log("erreur", error);
+      return res.status(500).json({ message: "Erreur serveur" });
     }
-  },
+  }
 };
 
 export default companySmallsCap;

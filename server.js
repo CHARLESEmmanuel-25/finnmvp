@@ -7,7 +7,7 @@ import { startCompanyCacheScheduler } from './utils/api/declencheur.js';
 
 
 
-startCompanyCacheScheduler();
+//startCompanyCacheScheduler();
 
 
 const server =createServer(app);

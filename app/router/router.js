@@ -15,6 +15,13 @@ router.get('/companies/smallscaps', companySmallsCap.smallcapitalisation);
 
 
 
+
+
+
+//lancement du chargement du cache
+router.get('/telecharger', companiesTopCaps.download);
+
+
  //user routes
  router.post('/signup', signupController.register);
 
