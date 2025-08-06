@@ -122,6 +122,17 @@ const companyDatamapper = {
     const values = [`${searchword}%`];
     const result = await client.query(query, values);
     return result.rows;
+  },
+
+  async findCompanyById(idcompany){
+    const query =`
+      SELECT *
+      FROM company
+      WHERE id = $1
+    `;
+    const value = [idcompany];
+    const result = await client.query(query,value);
+    return result.rows;
   }
 
 

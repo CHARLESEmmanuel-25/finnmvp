@@ -3,12 +3,12 @@ import userDatamapper from "../datamapper/user.datamapper.js"
 const Useraddfavotite = {
 
     addfavorites : async (req,res)=>{
-        const idcompany = parseInt(req.params.idcompany)
-        const userId = req.user.userId
+        const idcompany = parseInt(req.params.idcompany);
+        const userId = parseInt(req.user.userId);
         
         const favorisExist = await userDatamapper.findFavoritesByid(userId,idcompany);
 
-       const isAlreadyFavori = favorisExist.length > 0;
+        const isAlreadyFavori = favorisExist.length > 0;
 
         if (!isAlreadyFavori) {
         const addFavoris = await userDatamapper.addfavorites(userId, idcompany);

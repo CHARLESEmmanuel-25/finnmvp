@@ -14,7 +14,7 @@ function authenticateJWT(req, res, next) {
     req.user = decoded; // On ajoute les infos du token à la requête
     next();
   } catch (err) {
-    return res.status(403).json({ error: "Token invalide ou expiré." });
+    return res.status(403).json({ error: "Oups, ça ne fonctionne pas. Essayez de vous connecter, cela pourrait résoudre le problème.." });
   }
 }
 
