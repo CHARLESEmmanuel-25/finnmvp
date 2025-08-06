@@ -44,8 +44,18 @@ const userDatamapper = {
       INSERT INTO favori (code_company, code_utilisateur)
       VALUES ($1, $2)
     `;
-    const values = [companyId, userId]; // 👈 Inversé ici
+    const values = [companyId, userId];
     const result = await client.query(query, values);
+    return result.rows;
+  },
+
+  async dropfavorites(companyId,userId){
+    const query = `
+      DELETE FROM favori
+      WHERE code_company = $1 AND code_utilisateur = $2
+    `;
+    const values = [companyId, userId];
+    const result = await client.query(query,values);
     return result.rows;
   }
 

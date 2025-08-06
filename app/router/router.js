@@ -33,6 +33,8 @@ router.post('/companies/search', CompaniesSearchFilterController.searchbar);
 
  //add favorites
  router.post('/companies/addfavorites/:idcompany',authenticateJWT, Useraddfavotite.addfavorites);
+ //drop favorites
+ router.post('/companies/dropfavorites/:idcompany',authenticateJWT,Useraddfavotite.toggleFavorite);
 
  router.get('/companies/:idcompany', CompaniesController.findById);
 
