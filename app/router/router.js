@@ -8,6 +8,7 @@ import loginLimiter from "../middlewares/limiter.login.js";
 import Useraddfavotite from "../controller/User.addfavorites.js";
 import authenticateJWT from "../middlewares/tokenverify.js";
 import CompaniesController from "../controller/Companies.byid.js";
+import filterControler from "../controller/filter.companies.js";
 
 
 const router = Router();
@@ -39,6 +40,10 @@ router.get('/companies/user/watchlist',authenticateJWT,Useraddfavotite.watchlist
 
 // company par id 
  router.get('/companies/:idcompany', CompaniesController.findById);
+
+// filter
+
+router.post('/companies/filter/generalcriteria', filterControler.critereGeneral);
 
 
 //lancement du chargement du cache
