@@ -2,24 +2,6 @@ import userDatamapper from "../datamapper/user.datamapper.js"
 
 const Useraddfavotite = {
 
-    addfavorites : async (req,res)=>{
-        const idcompany = parseInt(req.params.idcompany);
-        const userId = parseInt(req.user.userId);
-        
-        const favorisExist = await userDatamapper.findFavoritesByid(userId,idcompany);
-
-        const isAlreadyFavori = favorisExist.length > 0;
-
-        if (!isAlreadyFavori) {
-        const addFavoris = await userDatamapper.addfavorites(userId, idcompany);
-        return res.status(200).json({ message: 'Favori ajouté'});
-        }
-
-        return res.status(409).json({ message: 'Déjà dans les favoris' });
-
-                
-    },
-    
     toggleFavorite : async (req,res)=>{
         
         const companyId = parseInt(req.params.idcompany, 10);
@@ -39,6 +21,22 @@ const Useraddfavotite = {
         } catch (error) {
             console.error('Erreur lors du toggle de favori :', error);
             return res.status(500).json({ message: 'Une erreur est survenue' });
+        }
+
+    },
+
+    watchlist : async (req,res)=>{
+        try {
+            const userId = parseInt(req.user.userId);
+            const favorites = await userDatamapper.watchlist(userId);
+            if (!favorites || favorites.length === 0) {
+                return res.status(404).json({ message: 'Aucun favori trouvé pour cet utilisateur.' })
+            }
+            return res.status(200).json(favorites);
+
+        } catch (error) {
+            console.error('Erreur lors de la récupération des favoris :', error);
+            return res.status(500).json({ message: 'Erreur serveur lors de la récupération des favoris.' });
         }
 
     }

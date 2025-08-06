@@ -57,6 +57,20 @@ const userDatamapper = {
     const values = [companyId, userId];
     const result = await client.query(query,values);
     return result.rows;
+  },
+
+  async watchlist(userid){
+    const query = `
+      SELECT c.*
+      FROM utilisateur u
+      JOIN favori f ON u.id = f.code_utilisateur
+      JOIN company c ON f.code_company = c.id
+      WHERE u.id = $1;
+    `;
+
+    const values = [userid];
+    const result = await client.query(query,values);
+    return result.rows;
   }
 
 

@@ -31,11 +31,13 @@ router.post('/companies/search', CompaniesSearchFilterController.searchbar);
  //logout
  router.post('/logout', signinController.logout);
 
- //add favorites
- router.post('/companies/addfavorites/:idcompany',authenticateJWT, Useraddfavotite.addfavorites);
- //drop favorites
+ //toggle favorites
  router.post('/companies/dropfavorites/:idcompany',authenticateJWT,Useraddfavotite.toggleFavorite);
 
+// liste tous les favoris de l'utilisateur
+router.get('/companies/user/watchlist',authenticateJWT,Useraddfavotite.watchlist);
+
+// company par id 
  router.get('/companies/:idcompany', CompaniesController.findById);
 
 

@@ -1,0 +1,10 @@
+@url = http://localhost:{{$dotenv PORT}}
+# @url = http://localhost:3000
+
+@mainEndpoint = companies/user/watchlist
+
+### POST /companies/addfavorites/:idcompany
+GET {{url}}/{{mainEndpoint}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE3NTQ0NzgzNzMsImV4cCI6MTc1NDQ4MTk3M30.gdLwjvz8Kd3zK_UnaxZ08E4yyjRLrYqzRdSd95BUJw8
+
+
