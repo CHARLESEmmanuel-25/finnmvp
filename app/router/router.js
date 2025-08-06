@@ -1,10 +1,13 @@
 import {Router} from "express";
 import signupController from "../controller/user.signup.controler.js";
 import signinController from "../controller/user.signincontroler.js";
-import companiesTopCaps from "../controller/Company.topcaps.js";
-import companySmallsCap from "../controller/Company.smallcap.js";
-import CompaniesSearchFilterController from "../controller/Company.searchbar.js";
+import companiesTopCaps from "../controller/Companies.topcaps.js";
+import companySmallsCap from "../controller/Companies.smallcap.js";
+import CompaniesSearchFilterController from "../controller/Companies.searchbar.js";
 import loginLimiter from "../middlewares/limiter.login.js";
+import Useraddfavotite from "../controller/User.addfavorites.js";
+import authenticateJWT from "../middlewares/tokenverify.js";
+import CompaniesController from "../controller/Companies.byid.js";
 
 
 const router = Router();
@@ -19,10 +22,6 @@ router.get('/companies/smallscaps', companySmallsCap.smallcapitalisation);
 // Route pour la barre de recherche
 router.post('/companies/search', CompaniesSearchFilterController.searchbar);
 
-//lancement du chargement du cache
-router.get('/telecharger', companiesTopCaps.download);
-
-
 //user routes
  router.post('/signup', signupController.register);
 
@@ -32,6 +31,14 @@ router.get('/telecharger', companiesTopCaps.download);
  //logout
  router.post('/logout', signinController.logout);
 
+ //add favorites
+ router.post('/companies/addfavorites/:idcompany',authenticateJWT, Useraddfavotite.addfavorites);
+
+ router.get('/companies/:idcompany', CompaniesController.findById);
+
+
+//lancement du chargement du cache
+router.get('/telecharger', companiesTopCaps.download);
 
  export default router;
 

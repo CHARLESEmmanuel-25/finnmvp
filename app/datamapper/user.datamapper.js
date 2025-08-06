@@ -24,7 +24,32 @@ const userDatamapper = {
 
     console.log(response.rows[0]);
     return response.rows[0];
+  },
+
+  async findFavoritesByid(userId, companyId) {
+    const query = `
+      SELECT f.*
+      FROM favori f
+      JOIN utilisateur u ON f.code_utilisateur = u.id
+      WHERE u.id = $1 AND f.code_company = $2;
+    `;
+    const values = [userId, companyId];
+    const result = await client.query(query, values);
+    return result.rows; 
+  },
+
+
+  async addfavorites(userId, companyId) {
+    const query = `
+      INSERT INTO favori (code_company, code_utilisateur)
+      VALUES ($1, $2)
+    `;
+    const values = [companyId, userId]; // 👈 Inversé ici
+    const result = await client.query(query, values);
+    return result.rows;
   }
+
+
 
 }
 

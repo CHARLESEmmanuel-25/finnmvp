@@ -1,0 +1,10 @@
+@url = http://localhost:{{$dotenv PORT}}
+# @url = http://localhost:3000
+
+@mainEndpoint = companies/addfavorites
+@idcompany = 1
+### POST /companies/addfavorites/:idcompany
+POST {{url}}/{{mainEndpoint}}/{{idcompany}}
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEzLCJpYXQiOjE3NTQ0NzM4MDYsImV4cCI6MTc1NDQ3NzQwNn0.ERp51YC1b-qPLTRcxMUHVvsFPnRNPyzxPiBIRFKhRHE
+Content-Type: application/json
+
