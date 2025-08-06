@@ -6,5 +6,5 @@ POST {{url}}/{{mainEndpoint}}
 Content-Type: application/json
 
 {
-  "searchword": "B"
+  "searchword": "AAPL"
 }

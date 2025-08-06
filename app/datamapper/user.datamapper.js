@@ -24,7 +24,56 @@ const userDatamapper = {
 
     console.log(response.rows[0]);
     return response.rows[0];
+  },
+
+  async findFavoritesByid(userId, companyId) {
+    const query = `
+      SELECT f.*
+      FROM favori f
+      JOIN utilisateur u ON f.code_utilisateur = u.id
+      WHERE u.id = $1 AND f.code_company = $2;
+    `;
+    const values = [userId, companyId];
+    const result = await client.query(query, values);
+    return result.rows; 
+  },
+
+
+  async addfavorites(userId, companyId) {
+    const query = `
+      INSERT INTO favori (code_company, code_utilisateur)
+      VALUES ($1, $2)
+    `;
+    const values = [companyId, userId];
+    const result = await client.query(query, values);
+    return result.rows;
+  },
+
+  async dropfavorites(companyId,userId){
+    const query = `
+      DELETE FROM favori
+      WHERE code_company = $1 AND code_utilisateur = $2
+    `;
+    const values = [companyId, userId];
+    const result = await client.query(query,values);
+    return result.rows;
+  },
+
+  async watchlist(userid){
+    const query = `
+      SELECT c.*
+      FROM utilisateur u
+      JOIN favori f ON u.id = f.code_utilisateur
+      JOIN company c ON f.code_company = c.id
+      WHERE u.id = $1;
+    `;
+
+    const values = [userid];
+    const result = await client.query(query,values);
+    return result.rows;
   }
+
+
 
 }
 
