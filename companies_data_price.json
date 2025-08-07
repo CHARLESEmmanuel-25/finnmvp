@@ -1,0 +1,22 @@
+{
+  "AAPL": {
+    "price": 219.24,
+    "performance": 2.8089
+  },
+  "MSFT": {
+    "price": 521.93,
+    "performance": -0.5734
+  },
+  "TSLA": {
+    "price": 318.6501,
+    "performance": -0.3938
+  },
+  "GOOGL": {
+    "price": 196.37,
+    "performance": 0.1428
+  },
+  "AMZN": {
+    "price": 222.9316,
+    "performance": 0.2796
+  }
+}
