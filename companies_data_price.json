@@ -1,22 +1,65 @@
 {
   "AAPL": {
-    "price": 219.24,
-    "performance": 2.8089
+    "price": 228.1709,
+    "performance": 3.6999,
+    "high": 228.23,
+    "low": 219.25,
+    "open": 221.38
   },
   "MSFT": {
-    "price": 521.93,
-    "performance": -0.5734
+    "price": 521.08,
+    "performance": 0.0461,
+    "high": 524.66,
+    "low": 519.41,
+    "open": 521.82
   },
   "TSLA": {
-    "price": 318.6501,
-    "performance": -0.3938
+    "price": 330.3,
+    "performance": 2.4917,
+    "high": 335.15,
+    "low": 320.12,
+    "open": 320.12
   },
   "GOOGL": {
-    "price": 196.37,
-    "performance": 0.1428
+    "price": 201.0401,
+    "performance": 2.3001,
+    "high": 202.61,
+    "low": 197.1,
+    "open": 197.1
   },
   "AMZN": {
-    "price": 222.9316,
-    "performance": 0.2796
+    "price": 222.54,
+    "performance": -0.2644,
+    "high": 223.86,
+    "low": 222.02,
+    "open": 223.86
+  },
+  "CRSR": {
+    "price": 8.98,
+    "performance": 1.3544,
+    "high": 10.29,
+    "low": 8.8,
+    "open": 9.5
+  },
+  "MNKD": {
+    "price": 3.525,
+    "performance": 2.7697,
+    "high": 3.55,
+    "low": 3.45,
+    "open": 3.45
+  },
+  "PLUG": {
+    "price": 1.52,
+    "performance": 0.6623,
+    "high": 1.565,
+    "low": 1.5,
+    "open": 1.53
+  },
+  "CLDX": {
+    "price": 20.8,
+    "performance": -1.9331,
+    "high": 21.61,
+    "low": 20.0966,
+    "open": 20.77
   }
 }
